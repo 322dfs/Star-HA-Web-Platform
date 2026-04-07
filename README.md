@@ -283,4 +283,8 @@ MIT License
 
 ## 📮 联系方式
 
-如有问题或建议，请提交 [Issue](https://github.com/322dfs/Star-HA-Web-Platform/issues)
+- **作者**: SUBENCAI
+- **邮箱**: 2080981057@qq.com
+- **GitHub**: [https://github.com/322dfs](https://github.com/322dfs)
+
+如有问题或建议，欢迎提交 [Issue](https://github.com/322dfs/Star-HA-Web-Platform/issues)

@@ -114,7 +114,7 @@
         <p class="subtitle">高可用 Web 服务基础设施</p>
         
         <div class="node-info">
-            <span id="node-name">Node: Loading...</span>
+            <span id="node-name">Server: Loading...</span>
         </div>
 
         <div class="status-grid">
@@ -152,7 +152,14 @@
     </div>
 
     <script>
-        document.getElementById('node-name').textContent = 'Node: ' + (window.location.hostname || 'Unknown');
+        fetch('/server-info')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('node-name').textContent = 'Server: ' + data.server;
+            })
+            .catch(() => {
+                document.getElementById('node-name').textContent = 'Server: Unknown';
+            });
         
         setInterval(() => {
             fetch('/health').catch(() => {});

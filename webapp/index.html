@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star-HA Web Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+        }
+        .logo {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #e94560, #f39c12, #2ecc71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            font-size: 1.2em;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .status-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .status-card h3 {
+            color: #e94560;
+            margin-bottom: 10px;
+        }
+        .status-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2ecc71;
+        }
+        .features {
+            text-align: left;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        .features h3 {
+            color: #f39c12;
+            margin-bottom: 15px;
+        }
+        .features ul {
+            list-style: none;
+        }
+        .features li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .features li:last-child {
+            border-bottom: none;
+        }
+        .features li::before {
+            content: "✓ ";
+            color: #2ecc71;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #666;
+            font-size: 0.9em;
+        }
+        .node-info {
+            background: rgba(233, 69, 96, 0.2);
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">⭐</div>
+        <h1>Star-HA Web Platform</h1>
+        <p class="subtitle">高可用 Web 服务基础设施</p>
+        
+        <div class="node-info">
+            <span id="node-name">Node: Loading...</span>
+        </div>
+
+        <div class="status-grid">
+            <div class="status-card">
+                <h3>负载均衡</h3>
+                <div class="status-value">Active</div>
+                <p>Nginx + Keepalived</p>
+            </div>
+            <div class="status-card">
+                <h3>监控状态</h3>
+                <div class="status-value">Running</div>
+                <p>Prometheus + Grafana</p>
+            </div>
+            <div class="status-card">
+                <h3>存储服务</h3>
+                <div class="status-value">Online</div>
+                <p>NFS Shared Storage</p>
+            </div>
+        </div>
+
+        <div class="features">
+            <h3>核心特性</h3>
+            <ul>
+                <li>双节点高可用负载均衡 (VIP 自动漂移)</li>
+                <li>共享存储确保配置一致性</li>
+                <li>全面的监控与告警系统</li>
+                <li>支持水平扩展 Web 节点</li>
+                <li>健康检查与自动故障转移</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>Powered by Docker | Star-HA Web Platform v1.0</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('node-name').textContent = 'Node: ' + (window.location.hostname || 'Unknown');
+        
+        setInterval(() => {
+            fetch('/health').catch(() => {});
+        }, 30000);
+    </script>
+</body>
+</html>

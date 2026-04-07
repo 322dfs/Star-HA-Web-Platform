@@ -1,0 +1,68 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['172.28.0.30:9090']
+        labels:
+          role: 'monitoring'
+          service: 'prometheus'
+
+  - job_name: 'grafana'
+    static_configs:
+      - targets: ['172.28.0.31:3000']
+        labels:
+          role: 'monitoring'
+          service: 'grafana'
+
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['172.28.0.32:9100']
+        labels:
+          role: 'monitoring'
+          service: 'node-exporter'
+
+  - job_name: 'nginx-lb-master'
+    static_configs:
+      - targets: ['172.28.0.11:80']
+        labels:
+          role: 'load-balancer'
+          service: 'nginx'
+          instance: 'master'
+    metrics_path: /nginx-status
+
+  - job_name: 'nginx-lb-backup'
+    static_configs:
+      - targets: ['172.28.0.12:80']
+        labels:
+          role: 'load-balancer'
+          service: 'nginx'
+          instance: 'backup'
+    metrics_path: /nginx-status
+
+  - job_name: 'webapp1'
+    static_configs:
+      - targets: ['172.28.0.21:80']
+        labels:
+          role: 'webapp'
+          service: 'nginx'
+          instance: 'webapp1'
+    metrics_path: /nginx-status
+
+  - job_name: 'webapp2'
+    static_configs:
+      - targets: ['172.28.0.22:80']
+        labels:
+          role: 'webapp'
+          service: 'nginx'
+          instance: 'webapp2'
+    metrics_path: /nginx-status
+
+  - job_name: 'filebrowser'
+    static_configs:
+      - targets: ['172.28.0.41:80']
+        labels:
+          role: 'storage'
+          service: 'filebrowser'
